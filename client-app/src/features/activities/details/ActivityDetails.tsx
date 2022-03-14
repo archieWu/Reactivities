@@ -7,11 +7,7 @@ interface Props {
   cancleSelectActivity: () => void;
   openForm: (id: string) => void;
 }
-export default function ActivityDetails({
-  activity,
-  cancleSelectActivity,
-  openForm,
-}: Props) {
+export default function ActivityDetails({ activity, cancleSelectActivity, openForm }: Props) {
   return (
     <Card fluid>
       <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
@@ -24,18 +20,8 @@ export default function ActivityDetails({
       </Card.Content>
       <Card.Content extra>
         <Button.Group width="2">
-          <Button
-            onClick={() => openForm(activity.id)}
-            basic
-            color="blue"
-            content="Edit"
-          />
-          <Button
-            onClick={cancleSelectActivity}
-            basic
-            color="grey"
-            content="Cancel"
-          />
+          <Button onClick={() => openForm(activity.id)} basic color="blue" content="編輯" />
+          <Button onClick={cancleSelectActivity} basic color="grey" content="取消" />
         </Button.Group>
       </Card.Content>
     </Card>

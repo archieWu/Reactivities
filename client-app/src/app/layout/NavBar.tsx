@@ -9,20 +9,12 @@ export default function NavBar({ openForm }: Props) {
     <Menu inverted fixed="top">
       <Container>
         <Menu.Item header>
-          <img
-            src="/assets/logo.png"
-            alt="logo"
-            style={{ marginRight: "10px" }}
-          />
+          <img src="/assets/logo.png" alt="logo" style={{ marginRight: "10px" }} />
           Reactivities
         </Menu.Item>
-        <Menu.Item name="Activities" />
+        <Menu.Item name="活動" />
         <Menu.Item>
-          <Button
-            onClick={openForm}
-            positive
-            content="Create Activity"
-          ></Button>
+          <Button onClick={openForm} positive content="創建活動"></Button>
         </Menu.Item>
       </Container>
     </Menu>

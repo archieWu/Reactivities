@@ -5,11 +5,13 @@ interface Props {
   activity: Activity | undefined;
   closeForm: () => void;
   createOrEdit: (activity: Activity) => void;
+  submitting: boolean;
 }
 export default function ActivityForm({
   activity: selectedActivity,
   closeForm,
   createOrEdit,
+  submitting,
 }: Props) {
   const initialState = selectedActivity ?? {
     id: "",
@@ -18,7 +20,7 @@ export default function ActivityForm({
     category: "",
     city: "",
     venue: "",
-    description: "", 
+    description: "",
   };
 
   const [activity, setActivity] = useState(initialState);
@@ -27,9 +29,7 @@ export default function ActivityForm({
     createOrEdit(activity);
   }
 
-  function handleInputChange(
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
+  function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
     setActivity({ ...activity, [name]: value });
   }
@@ -38,48 +38,44 @@ export default function ActivityForm({
     <Segment clearing>
       <Form onSubmit={handleSubmit} autoComplete="off">
         <Form.Input
-          placeholder="Title"
+          placeholder="標題"
           value={activity.title}
           name="title"
           onChange={handleInputChange}
         />
         <Form.TextArea
-          placeholder="Description"
+          placeholder="敘述"
           value={activity.description}
           name="description"
           onChange={handleInputChange}
         />
         <Form.Input
-          placeholder="Category"
+          placeholder="類別"
           value={activity.category}
           name="category"
           onChange={handleInputChange}
         />
         <Form.Input
-          placeholder="Date"
+          type="date"
+          placeholder="日期"
           value={activity.date}
           name="date"
           onChange={handleInputChange}
         />
         <Form.Input
-          placeholder="City"
+          placeholder="城市"
           value={activity.city}
           name="city"
           onChange={handleInputChange}
         />
         <Form.Input
-          placeholder="Venue"
+          placeholder="場地"
           value={activity.venue}
           name="venue"
           onChange={handleInputChange}
         />
-        <Button floated="right" positive type="submit" content="Submit" />
-        <Button
-          onClick={closeForm}
-          floated="right"
-          type="button"
-          content="Cancel"
-        />
+        <Button loading={submitting } floated="right" positive type="submit" content="送出" />
+        <Button onClick={closeForm} floated="right" type="button" content="取消" />
       </Form>
     </Segment>
   );
