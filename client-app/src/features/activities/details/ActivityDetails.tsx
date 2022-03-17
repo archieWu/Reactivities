@@ -1,13 +1,13 @@
-import React from "react";
+import { observer } from "mobx-react-lite";
 import { Button, Card, Image } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
+import { useStore } from "../../../app/stores/store";
 
-interface Props {
-  activity: Activity;
-  cancleSelectActivity: () => void;
-  openForm: (id: string) => void;
-}
-export default function ActivityDetails({ activity, cancleSelectActivity, openForm }: Props) {
+export default observer(function ActivityDetails() {
+  const { activityStore } = useStore();
+  const { selectedActivity: activity, cancleSelectActivity, openForm } = activityStore;
+
+  if (!activity) return <></>;
+
   return (
     <Card fluid>
       <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
@@ -26,4 +26,4 @@ export default function ActivityDetails({ activity, cancleSelectActivity, openFo
       </Card.Content>
     </Card>
   );
-}
+});
