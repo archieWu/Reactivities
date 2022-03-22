@@ -1,12 +1,18 @@
 import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Button, Card, Image } from "semantic-ui-react";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { useStore } from "../../../app/stores/store";
 
 export default observer(function ActivityDetails() {
   const { activityStore } = useStore();
-  const { selectedActivity: activity, cancleSelectActivity, openForm } = activityStore;
-
-  if (!activity) return <></>;
+  const { selectedActivity: activity, loadActivity, initialLoading } = activityStore;
+  const { id } = useParams<{ id: string }>();
+  useEffect(() => {
+    if (id) loadActivity(id);
+  }, [id, loadActivity]);
+  if (initialLoading || !activity) return <LoadingComponent />;
 
   return (
     <Card fluid>
@@ -20,8 +26,8 @@ export default observer(function ActivityDetails() {
       </Card.Content>
       <Card.Content extra>
         <Button.Group width="2">
-          <Button onClick={() => openForm(activity.id)} basic color="blue" content="編輯" />
-          <Button onClick={cancleSelectActivity} basic color="grey" content="取消" />
+          <Button as={Link} to={`/manage/${activity.id}`} basic color="blue" content="編輯" />
+          <Button as={Link} to="/activities" basic color="grey" content="取消" />
         </Button.Group>
       </Card.Content>
     </Card>
